@@ -37,19 +37,19 @@ public class ReportBans
         this.table.createTable(this.sql, "create table report_bans (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, Name varchar(25), UUID varchar(45), ban_status boolean, ban_reason varchar(350)); ");
     }
     
-    public void checkBanned(final SQL sql, final Player p) {
-        final String uuid = "" + p.getUniqueId();
+    public void checkBanned(SQL sql, Player p) {
+        String uuid = "" + p.getUniqueId();
         try {
-            final Statement s = sql.getConnection().createStatement();
-            final String query = "SELECT * FROM report_bans WHERE UUID='" + uuid + "'";
-            final ResultSet set = s.executeQuery(query);
+            Statement s = sql.getConnection().createStatement();
+            String query = "SELECT * FROM report_bans WHERE UUID='" + uuid + "'";
+            ResultSet set = s.executeQuery(query);
             while (set.next()) {
-                final String result = set.getString(3);
+                String result = set.getString(3);
                 if (result.equals(uuid)) {
-                    this.setStatus(true);
+                    setStatus(true);
                 }
                 else {
-                    this.setStatus(false);
+                    setStatus(false);
                 }
             }
         }
@@ -58,14 +58,14 @@ public class ReportBans
         }
     }
     
-    public void getReason(final SQL sql, final Player p) {
-        final String uuid = "" + p.getUniqueId();
+    public void getReason(SQL sql, Player p) {
+        String uuid = "" + p.getUniqueId();
         try {
-            final Statement s = sql.getConnection().createStatement();
-            final String query = "SELECT ban_reason FROM report_bans WHERE UUID='" + uuid + "'";
-            final ResultSet set = s.executeQuery(query);
+            Statement s = sql.getConnection().createStatement();
+            String query = "SELECT ban_reason FROM report_bans WHERE UUID='" + uuid + "'";
+            ResultSet set = s.executeQuery(query);
             while (set.next()) {
-                final String result = ChatColor.RED + set.getString(1);
+                String result = ChatColor.RED + set.getString(1);
                 p.sendMessage(result);
             }
         }
@@ -82,11 +82,11 @@ public class ReportBans
         return this.status;
     }
     
-    public void setStatus(final boolean b) {
+    public void setStatus(boolean b) {
         this.status = b;
     }
     
     @Deprecated
-    public void submitBan(final SQL sql, final String uuid) {
+    public void submitBan(SQL sql, String uuid) {
     }
 }
