@@ -14,9 +14,9 @@ public class DeleteReport implements CommandExecutor
         this.report = new Report();
     }
     
-    private void deleteReport(SQL con, Player p, String var) {
+    private void deleteReport(final SQL con, final Player p, final String var) {
         try {
-            PreparedStatement statement = con.getConnection().prepareStatement("DELETE FROM user_reports WHERE id='" + var + "';");
+            final PreparedStatement statement = con.getConnection().prepareStatement("DELETE FROM user_reports WHERE id='" + var + "';");
             statement.execute();
             statement.close();
             p.sendMessage(ChatColor.RED + "Deleted Report ID, " + var + ".");
@@ -32,15 +32,15 @@ public class DeleteReport implements CommandExecutor
         this.sql = this.report.getAccess();
     }
     
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+    public boolean onCommand(final CommandSender sender, final Command cmd, final String commandLabel, final String[] args) {
         this.connection();
         if (!(sender instanceof Player)) {
             sender.sendMessage("Unknown command. Type \"/help\" for help.");
             return true;
         }
-        Player p = (Player)sender;
+        final Player p = (Player)sender;
         if (cmd.getName().equalsIgnoreCase("br-deletereport")) {
-            String uuid = "" + p.getUniqueId();
+            final String uuid = "" + p.getUniqueId();
             if (!uuid.equals(this.report.getAuthors())) {
                 p.sendMessage("Unknown command. Type \"/help\" for help.");
             }
@@ -49,8 +49,8 @@ public class DeleteReport implements CommandExecutor
             }
             else if (args.length == 1) {
                 p.sendMessage(this.report.getMessage());
-                String id = args[0];
-                deleteReport(this.sql, p, id);
+                final String id = args[0];
+                this.deleteReport(this.sql, p, id);
             }
         }
         return false;
