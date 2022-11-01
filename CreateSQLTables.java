@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class CreateSQLTables
 {
-    public void createTable(SQL val, boolean instance, String sql) {
+    public void createTable(final SQL val, final boolean instance, final String sql) {
         if (instance) {
             try {
                 val.c.prepareStatement(sql).executeUpdate();
@@ -15,7 +15,7 @@ public class CreateSQLTables
         }
     }
     
-    public void createTable(SQL value, String sql) {
+    public void createTable(final SQL value, final String sql) {
         try {
             value.c.prepareStatement(sql).executeUpdate();
         }

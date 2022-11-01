@@ -26,26 +26,26 @@ public class SQL
         return this.database;
     }
     
-    public void setHost(String host) {
+    public void setHost(final String host) {
         this.host = host;
     }
     
-    public void setUser(String user) {
+    public void setUser(final String user) {
         this.user = user;
     }
     
-    public void setPassword(String pass) {
+    public void setPassword(final String pass) {
         this.pass = pass;
     }
     
-    public void setDatabase(String database) {
+    public void setDatabase(final String database) {
         this.database = database;
     }
     
     public SQL() {
     }
     
-    public SQL(String ip, String userName, String access, String db) {
+    public SQL(final String ip, final String userName, final String access, final String db) {
         this.host = ip;
         this.user = userName;
         this.pass = access;

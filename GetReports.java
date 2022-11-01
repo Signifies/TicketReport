@@ -16,17 +16,17 @@ public class GetReports implements CommandExecutor, Listener
         this.report = new Report();
     }
     
-    public void checkReports(SQL con, Player p) {
+    public void checkReports(final SQL con, final Player p) {
         try {
-            Statement s = con.c.createStatement();
-            String query = "SELECT * FROM user_reports WHERE UUID='" + p.getUniqueId() + "'";
-            ResultSet set = s.executeQuery(query);
-            String header = ChatColor.GRAY + "Name           report    Status:\n--------------------------";
+            final Statement s = con.c.createStatement();
+            final String query = "SELECT * FROM user_reports WHERE UUID='" + p.getUniqueId() + "'";
+            final ResultSet set = s.executeQuery(query);
+            final String header = ChatColor.GRAY + "Name           report    Status:\n--------------------------";
             p.sendMessage(this.report.getMessage());
             p.sendMessage(header);
             while (set.next()) {
                 p.sendMessage(this.report.getMessage());
-                String result = ChatColor.AQUA + set.getString(3) + ChatColor.RESET + "  " + set.getString(5) + "  :" + ChatColor.GOLD + "  " + set.getString(7);
+                final String result = ChatColor.AQUA + set.getString(3) + ChatColor.RESET + "  " + set.getString(5) + "  :" + ChatColor.GOLD + "  " + set.getString(7);
                 p.sendMessage(result);
             }
             p.sendMessage("\n");
@@ -43,13 +43,13 @@ public class GetReports implements CommandExecutor, Listener
         this.sql = this.report.getAccess();
     }
     
-    public void checkForReports(SQL sql, Player p) {
+    public void checkForReports(final SQL sql, final Player p) {
         try {
-            Statement s = sql.getConnection().createStatement();
-            String query = "SELECT * FROM user_reports WHERE UUID='" + p.getUniqueId() + "'";
-            ResultSet set = s.executeQuery(query);
+            final Statement s = sql.getConnection().createStatement();
+            final String query = "SELECT * FROM user_reports WHERE UUID='" + p.getUniqueId() + "'";
+            final ResultSet set = s.executeQuery(query);
             while (set.next()) {
-                String result = set.getString(7);
+                final String result = set.getString(7);
                 if (!result.isEmpty()) {
                     p.sendMessage(ChatColor.YELLOW + p.getName() + ChatColor.GREEN + ", You have answered reports waiting for you! do /br-reports to check!");
                 }
@@ -67,21 +67,21 @@ public class GetReports implements CommandExecutor, Listener
     }
     
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        connection();
-        Player p = event.getPlayer();
-        String user = "" + p.getUniqueId();
-        report.checkAuthor(p);
-        checkForReports(this.sql, p);
+    public void onPlayerJoin(final PlayerJoinEvent event) {
+        this.connection();
+        final Player p = event.getPlayer();
+        final String user = "" + p.getUniqueId();
+        this.report.checkAuthor(p);
+        this.checkForReports(this.sql, p);
     }
     
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+    public boolean onCommand(final CommandSender sender, final Command cmd, final String commandLabel, final String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage("This cannot be sent from the console.");
             return true;
         }
         this.connection();
-        Player p = (Player)sender;
+        final Player p = (Player)sender;
         if (cmd.getName().equalsIgnoreCase("br-reports") && args.length < 1) {
             this.checkReports(this.sql, p);
         }
